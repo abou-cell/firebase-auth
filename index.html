@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentification Club Paramoteur</title>
+</head>
+<body>
+    <h2>Authentification Club Paramoteur</h2>
+    <div id="login-form">
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Mot de passe">
+        <button onclick="login()">Connexion</button>
+        <button onclick="register()">Inscription</button>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"></script>
+    <script>
+        // Configuration de Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyByN6-ddpGdqUpauBkdygSDLBG5hanaU-o",
+            authDomain: "club-paramoteur-auth.firebaseapp.com",
+            projectId: "club-paramoteur-auth",
+            storageBucket: "club-paramoteur-auth.appspot.com",
+            messagingSenderId: "283398992068",
+            appId: "1:283398992068:web:7683da9f26a8af18561991"
+        };
+
+        // Initialiser Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+
+        function login() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            firebase.auth().signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // Utilisateur connecté
+                    console.log('Utilisateur connecté:', userCredential.user);
+                    // Redirection ou gestion de session ici
+                })
+                .catch((error) => {
+                    alert('Erreur de connexion: ' + error.message);
+                });
+        }
+
+        function register() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            firebase.auth().createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // Utilisateur inscrit
+                    console.log('Utilisateur inscrit:', userCredential.user);
+                    // Redirection ou gestion de session ici
+                })
+                .catch((error) => {
+                    alert('Erreur d\'inscription: ' + error.message);
+                });
+        }
+    </script>
+</body>
+</html>
